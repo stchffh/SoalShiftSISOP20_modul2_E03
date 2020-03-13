@@ -15,26 +15,26 @@ int main(int a,char *b[]){
 	int sc,mn,hr= -1;
 
 	if(b[1][0]!='*')
-	sc=atoi(b[1]);
+		sc=atoi(b[1]);
 	if (b[2][0]!='*')
-	mn=atoi(b[2]);
+		mn=atoi(b[2]);
 	if(b[3][0]!='*')
-	hr=atoi(b[3]);
+		hr=atoi(b[3]);
 	if(b!=5){
 		printf("TIDAK VALID\n");}
 
 	pid_t proses, session;
 	child=fork();
 	if(child<0)
-	exit(EXIT_FAILURE);
+		exit(EXIT_FAILURE);
 	if(child>0)
-	exit(EXIT_SUCCESS);
+		exit(EXIT_SUCCESS);
 
 	umask(0);
 
 	session=setsid();
 	if(session<0)
-	exit(EXIT_FAILURE);
+		exit(EXIT_FAILURE);
 
 	close(STDIN_FILENO);
 	close(STDOUT_FILENO);
