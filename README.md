@@ -115,10 +115,6 @@ int main (){
     int tanda;
 
     anak = fork();
-    
-    if (anak < 0){
-     exit (EXIT_FAILURE);}
-
     if (anak == 0){
         char *buat[] = {"mkdir","-p","/home/oktarizka156/modul2/indomie", (char *)NULL};
         execv("/bin/mkdir", buat);}
@@ -130,5 +126,22 @@ int main (){
             char *buat[] = {"mkdir", "-p", "/home/oktarizka156/modul2/sedaap", (char *)NULL};
             execv("/bin/mkdir", buat);}
  ```
- - `    pid_t anak;` untuk mendeklarasikan
+ - `anak = fork();` digunakan agar dapat membuat proses baru
+ - `char *buat[] = {"mkdir","-p","/home/oktarizka156/modul2/indomie", (char *)NULL};` merupakan child process untuk membuat direktori baru pada path `/home/oktarizka156/modul2` yang dinamakan `indomie`
+- `execv("/bin/mkdir", buat);` merupakan perintah yang digunakan agar dapat menjalankan perintah diatasnya
+- `while(wait(&tanda) > 0);` perintah yang menandakan bahwa process selanjutnya adalah parent process sehingga child process dapat dijalankan terlebih dahulu
+- `sleep(5);` perintah bahwa ada jeda 5 detik sebelum process dijalankan
+- `char *buat[] = {"mkdir", "-p", "/home/oktarizka156/modul2/sedaap", (char *)NULL};` merupakan parent process untuk membuat direktori baru pada path `/home/oktarizka156/modul2` yang dinamakan `sedaap`
+
+b). Untuk penyelesaian soal bagian b, dapat dilihat dari code dibawah ini :
+```
+ else{
+            while(wait(&tanda)>0);
+            anak=fork();
+            if(anak==0){
+                char *buat[] = {"unzip","/home/oktarizka156/Downloads/jpg.zip","-d","/home/oktarizka156/modul2",(char *)NULL};
+                execv("/usr/bin/unzip",buat);}
+```
+
+ 
         
