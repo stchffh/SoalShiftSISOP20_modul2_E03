@@ -102,9 +102,8 @@ Catatan :
 - Direktori “.” dan “..” tidak termasuk
 
 ### PENJELASAN :
-a). Untuk penjelasan soal bagian a, dapat dilihat dari code dibawah ini :
+a). Untuk penjelasan dan penyelesaian soal bagian a, dapat dilihat dari code dibawah ini :
 ```
-#include <stdio.h>
 #include <stdlib.h>
 #include <sys/types.h>
 #include <unistd.h>
@@ -127,13 +126,13 @@ int main (){
             execv("/bin/mkdir", buat);}
  ```
  - `anak = fork();` digunakan agar dapat membuat proses baru
- - `char *buat[] = {"mkdir","-p","/home/oktarizka156/modul2/indomie", (char *)NULL};` merupakan child process untuk membuat direktori baru pada path `/home/oktarizka156/modul2` yang dinamakan `indomie`
-- `execv("/bin/mkdir", buat);` merupakan perintah yang digunakan agar dapat menjalankan perintah diatasnya
+ - `char *buat[] = {"mkdir","-p","/home/oktarizka156/modul2/indomie", (char *)NULL};` merupakan child process untuk membuat direktori baru pada path `/home/oktarizka156/modul2` yang dinamakan `indomie` 
+- `execv("/bin/mkdir", buat);`  merupakan path `mkdir` agar process sebelumnya dapat berjalan
 - `while(wait(&tanda) > 0);` perintah yang menandakan bahwa process selanjutnya adalah parent process sehingga child process dapat dijalankan terlebih dahulu
 - `sleep(5);` perintah bahwa ada jeda 5 detik sebelum process dijalankan
 - `char *buat[] = {"mkdir", "-p", "/home/oktarizka156/modul2/sedaap", (char *)NULL};` merupakan parent process untuk membuat direktori baru pada path `/home/oktarizka156/modul2` yang dinamakan `sedaap`
 
-b). Untuk penyelesaian soal bagian b, dapat dilihat dari code dibawah ini :
+b). Untuk penjelasan dan penyelesaian soal bagian b, dapat dilihat dari code dibawah ini :
 ```
  else{
             while(wait(&tanda)>0);
@@ -142,6 +141,43 @@ b). Untuk penyelesaian soal bagian b, dapat dilihat dari code dibawah ini :
                 char *buat[] = {"unzip","/home/oktarizka156/Downloads/jpg.zip","-d","/home/oktarizka156/modul2",(char *)NULL};
                 execv("/usr/bin/unzip",buat);}
 ```
+- `char *buat[] = {"unzip","/home/oktarizka156/Downloads/jpg.zip","-d","/home/oktarizka156/modul2",(char *)NULL};` perintah untuk mengunzip file `jpg.zip` yang ada pada path `/home/oktarizka156/Downloads` menuju direktori `modul2`
+- ` execv("/usr/bin/unzip",buat);` merupakan path `unzip` agar process sebelumnya dapat berjalan
 
- 
-        
+c). Untuk penjelasan dan penyelesaian soal bagian c, dapat dilihat dari code dibawah ini :
+```
+else{
+                while(wait(&tanda)>0);
+                anak=fork();
+                if(anak==0){
+                    char *buat[] = {"find","/home/oktarizka156/modul2/jpg/","-type","f","-exec","/bin/mv","-t","/home/oktarizka156/modul2/sedaap","{}",";",(char *)NULL};
+                    execv("/usr/bin/find",buat);}
+                else{
+                    while(wait(&tanda)>0);
+                    anak=fork();
+                    if(anak == 0){
+                        char *buat[] = {"find","/home/oktarizka156/modul2/jpg/","-mindepth","1","-type","d","-exec","/bin/mv","-t","/home/oktarizka156/modul2/indomie","{}",";",(char *)NULL};
+                        execv("/usr/bin/find",buat);}
+```
+- `char *buat[] = {"find","/home/oktarizka156/modul2/jpg/","-type","f","-exec","/bin/mv","-t","/home/oktarizka156/modul2/sedaap","{}",";",(char *)NULL};` perintah untuk memindahkan file pada direktori `jpg` pada `modul2` kedalam direktori `sedaap`
+- `execv("/usr/bin/find",buat);` merupakan path `find` agar process sebelumnya dapat berjalan
+- ` char *buat[] = {"find","/home/oktarizka156/modul2/jpg/","-mindepth","1","-type","d","-exec","/bin/mv","-t","/home/oktarizka156/modul2/indomie","{}",";",(char *)NULL};` perintah untuk memindahkan direktori yang ada pada direktori `jpg` pada `modul2` kedalam direktori `indomie`
+
+d). Untuk penjelasan dan penyelesaian soal bagian d, dapat dilihat pada code dibawah ini :
+```
+else{
+                        while(wait(&tanda)>0);
+                        anak=fork();
+                        if(anak==0){
+                            char *buat[] = {"find","/home/oktarizka156/modul2/indomie/","-mindepth","1","-type","d","-exec","touch","{}/coba1.txt","'\'",";",(char *)NULL};
+                            execv("/usr/bin/find",buat);}
+                        else{
+                            while(wait(&tanda)>0);
+                            sleep(3);
+                            char *buat[] = {"find","/home/oktarizka156/modul2/indomie/","-mindepth","1","-type","d","-exec","touch","{}/coba2.txt","'\'",";",(char *)NULL};
+                            execv("/usr/bin/find",buat);}
+```
+- `char *buat[] = {"find","/home/oktarizka156/modul2/indomie/","-mindepth","1","-type","d","-exec","touch","{}/coba1.txt","'\'",";",(char *)NULL};` perintah untuk membuat file `coba1.txt` pada direktori `indomie`
+- `sleep(3);` perintah bahwa ada jeda 3 detik sebelum process dijalankan
+- `char *buat[] = {"find","/home/oktarizka156/modul2/indomie/","-mindepth","1","-type","d","-exec","touch","{}/coba2.txt","'\'",";",(char *)NULL};` perintah untuk membuat file `coba2.txt` pada direktori `indomie`
+       
