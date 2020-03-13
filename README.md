@@ -30,7 +30,7 @@ detik pada jam 07:34.
 ### SOAL NOMOR DUA
 + [soal2.c](https://github.com/stchffh/SoalShiftSISOP20_modul2_E03/blob/master/soal2/soal2.c)
 
-2. Shisoppu mantappu! itulah yang selalu dikatakan Kiwa setiap hari karena sekarang dia
+Shisoppu mantappu! itulah yang selalu dikatakan Kiwa setiap hari karena sekarang dia
 merasa sudah jago materi sisop. Karena merasa jago, suatu hari Kiwa iseng membuat
 sebuah program.
 a. Pertama-tama, Kiwa membuat sebuah folder khusus, di dalamnya dia membuat
@@ -38,17 +38,12 @@ sebuah program C yang per 30 detik membuat sebuah folder dengan nama
 timestamp [YYYY-mm-dd_HH:ii:ss].
 b. Tiap-tiap folder lalu diisi dengan 20 gambar yang di download dari
 https://picsum.photos/, dimana tiap gambar di download setiap 5 detik. Tiap
-gambar berbentuk persegi dengan ukuran (t%1000)+100 piksel dimana t adalah
-
-detik Epoch Unix. Gambar tersebut diberi nama dengan format timestamp [YYYY-
+gambar berbentuk persegi dengan ukuran (t%1000)+100 piksel dimana t adalah detik Epoch Unix. Gambar tersebut diberi nama dengan format timestamp [YYYY-
 mm-dd_HH:ii:ss].
-
 c. Agar rapi, setelah sebuah folder telah terisi oleh 20 gambar, folder akan di zip dan
 folder akan di delete(sehingga hanya menyisakan .zip).
-
 d. Karena takut program tersebut lepas kendali, Kiwa ingin program tersebut men-
 generate sebuah program "killer" yang siap di run(executable) untuk
-
 menterminasi semua operasi program tersebut. Setelah di run, program yang
 menterminasi ini lalu akan mendelete dirinya sendiri.
 e. Kiwa menambahkan bahwa program utama bisa dirun dalam dua mode, yaitu
