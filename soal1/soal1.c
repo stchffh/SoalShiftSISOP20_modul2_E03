@@ -10,48 +10,72 @@
 #include <sys/wait.h>
 #include <sys/stat.h>
 
-int main(int a,char *b[]){
-	int hour,minute,second;
-	int sc,mn,hr= -1;
+int main(int argc, char *argv[]){
 
-	if(b[1][0]!='*')
-		sc=atoi(b[1]);
-	if (b[2][0]!='*')
-		mn=atoi(b[2]);
-	if(b[3][0]!='*')
-		hr=atoi(b[3]);
-	if(b!=5){
-		printf("TIDAK VALID\n");}
+pid_t pid, sid;
 
-	pid_t proses, session;
-	child=fork();
-	if(child<0)
-		exit(EXIT_FAILURE);
-	if(child>0)
-		exit(EXIT_SUCCESS);
+pid = fork();
 
-	umask(0);
+if (pid < 0)
+exit(EXIT_FAILURE);
 
-	session=setsid();
-	if(session<0)
-		exit(EXIT_FAILURE);
+if (pid > 0)
+exit(EXIT_SUCCESS);
 
-	close(STDIN_FILENO);
-	close(STDOUT_FILENO);
-	close(STDERR_FILENO);
+umask(0);
 
-	while (1){
-		time_t waktu=waktu(NULL);
-		struct wkt *wkt=localtime(&waktu);
+sid = setsid();
+if (sid < 0)
+exit(EXIT_FAILURE);
 
-		hour=wkt->wkt_hour;
-		minute=wkt->wkt_min;
-		second=wkt->wkt_sec;
-		if((hour==hr||hr==-1)&&(minute==mn||mn==-1)&&(second== sc||sc==-1)){
-			if(fork()==0){
-				char *c[] = {"bash", b[4], NULL};
-					execv("/bin/bash", c);}
-			sleep(1);
-		}
-	}
+close(STDIN_FILENO);
+close(STDOUT_FILENO);
+close(STDERR_FILENO);
+
+time_t timer = time(NULL);
+struct tm *tm= localtime(&timer);
+
+int hour,minute,second;
+int sc,mn,hr= -1;
+
+if (argc!= 5)
+{
+printf ("Argument tidak valid\n");
+return 0;
 }
+
+if (argv[1][0] !='*')
+sc= atoi(argv[1]);
+if (argv[2][0] !='*')
+mn= atoi(argv[2]);
+if (argv[3][0] !='*')
+hr= atoi(argv[3]);
+
+if(hr > 23 || hr < -1 || mn > 59 || mn < -1 || sc > 59 || sc < -1)
+{
+printf("Range waktu salah\n");
+return 0;
+}
+
+while (1)
+{
+time_t timer = time(NULL);
+struct tm *tm= localtime(&timer);
+
+hour= tm->tm_hour;
+minute= tm->tm_min;
+second= tm->tm_sec;
+
+if ((hour== hr || hr== -1) &&
+(minute== mn || mn== -1) &&
+(second== sc || sc== -1))
+{
+if (fork()==0) {
+char *argexec[] = {"bash", argv[4], NULL};
+execv("/bin/bash", argexec);
+}
+sleep(1);
+}
+}
+}
+
