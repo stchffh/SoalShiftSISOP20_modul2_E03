@@ -1,5 +1,4 @@
 # SoalShiftSISOP20_modul2_E03
-# SoalShiftSISOP20_modul2_E03
 Praktikum Sistem Operasi Modul 2
 
 Kelompok E3
